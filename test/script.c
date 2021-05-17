@@ -175,6 +175,66 @@ void ZopfliDeflatePart_PC1(){
 
 	assert(res[0]<=res[1]);
 }
+void ZopfliCalculateBlockSize_PC0() {
+    const unsigned char data;
+    ZopfliLZ77Store lz77;
+    ZopfliInitLZ77Store(&data, &lz77);
+    size_t lstart = 0;
+    size_t lend = 0;
+    int btype;
+
+    double result[2];
+    {
+        btype = 0;
+        result[0] = ZopfliCalculateBlockSize(&lz77, lstart, lend, btype);
+    }
+    {
+        btype = 1;
+        result[1] = ZopfliCalculateBlockSize(&lz77, lstart, lend, btype);
+    }
+
+    // printf("%lf %lf\n", result[0], result[1]);
+    assert(result[0] <= result[1]);
+}
+void ZopfliCalculateBlockSize_PC1() {
+    const unsigned char data;
+    ZopfliLZ77Store lz77;
+    ZopfliInitLZ77Store(&data, &lz77);
+    size_t lstart = 0;
+    size_t lend = 0;
+    int btype;
+
+    double result[2];
+    {
+        btype = 2;
+        result[0] = ZopfliCalculateBlockSize(&lz77, lstart, lend, btype);
+    }
+    {
+        btype = 1;
+        result[1] = ZopfliCalculateBlockSize(&lz77, lstart, lend, btype);
+    }
+
+    assert(result[0] >= result[1]);
+}
+void ZopfliCalculateBlockSizeAutoType_PC0() {
+    const unsigned char data;
+    ZopfliLZ77Store lz77;
+    ZopfliInitLZ77Store(&data, &lz77);
+
+    size_t lstart = 0;
+    size_t lend = 0;
+
+    double result[2];
+    {
+        lz77.size = 0;
+        result[0] = ZopfliCalculateBlockSizeAutoType(&lz77, lstart, lend);
+    }
+    {
+        lz77.size = 1001;
+        result[1] = ZopfliCalculateBlockSizeAutoType(&lz77, lstart, lend);
+    }
+    assert(result[0] == result[1]);
+}
 //end of Logic Coverage
 
 int main(){
@@ -184,6 +244,10 @@ int main(){
 	ZopfliDeflate_PC1();
 	ZopfliDeflatePart_PC0();
 	ZopfliDeflatePart_PC1();
+
+	ZopfliCalculateBlockSize_PC0();
+	ZopfliCalculateBlockSize_PC1();
+	ZopfliCalculateBlockSizeAutoType_PC0();
 
 	printf("[TEST] All done.\n");
 }
