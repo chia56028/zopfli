@@ -1,6 +1,6 @@
 .PHONY:all run clean
-CFLAGS:=-I../src/zopfli/
-LFLAGS:=-lm
+CFLAGS:=-I../src/zopfli/ --coverage
+LFLAGS:=-lm --coverage
 ZOPFLILIB_SRC:=src/zopfli/blocksplitter.c src/zopfli/cache.c\
                 src/zopfli/deflate.c src/zopfli/gzip_container.c\
                 src/zopfli/hash.c src/zopfli/katajainen.c\
@@ -24,7 +24,13 @@ run:
 	make all
 	./$(APP)
 
+cov:
+	gcov ../obj/src/zopfli/deflate.c
+
 clean:
-	cd .. && make clean
 	-rm $(APP)
-	-rm $(APP).o
+	-rm *.o
+	-rm *.gcno
+	-rm *.gcda
+	-rm *.gcov
+	cd .. && make clean

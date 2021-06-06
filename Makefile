@@ -1,8 +1,8 @@
 CC ?= gcc
 CXX ?= g++
 
-override CFLAGS := -W -Wall -Wextra -ansi -pedantic -lm -O3 -Wno-unused-function -fPIC $(CFLAGS)
-override CXXFLAGS := -W -Wall -Wextra -ansi -pedantic -O3 -fPIC $(CXXFLAGS)
+override CFLAGS := -W -Wall -Wextra -ansi -pedantic -lm --coverage -Wno-unused-function -fPIC $(CFLAGS)
+override CXXFLAGS := -W -Wall -Wextra -ansi -pedantic --coverage -fPIC $(CXXFLAGS)
 
 ZOPFLILIB_SRC = src/zopfli/blocksplitter.c src/zopfli/cache.c\
                 src/zopfli/deflate.c src/zopfli/gzip_container.c\
@@ -22,7 +22,8 @@ ZOPFLIPNGBIN_OBJ := $(patsubst %.cc,obj/%.o,$(ZOPFLIPNGBIN_SRC))
 
 .PHONY: all libzopfli libzopflipng
 
-all: zopfli libzopfli libzopfli.a zopflipng libzopflipng libzopflipng.a
+#all: zopfli libzopfli libzopfli.a zopflipng libzopflipng libzopflipng.a
+all: zopfli
 
 obj/%.o: %.c
 	@mkdir -p `dirname $@`
@@ -62,4 +63,6 @@ libzopflipng.a: $(LODEPNG_OBJ) $(ZOPFLIPNGLIB_OBJ)
 
 # Remove all libraries and binaries
 clean:
-	rm -f zopflipng zopfli $(ZOPFLILIB_OBJ) $(ZOPFLIBIN_OBJ) $(LODEPNG_OBJ) $(ZOPFLIPNGLIB_OBJ) $(ZOPFLIPNGBIN_OBJ) libzopfli*
+	#rm -f zopflipng zopfli $(ZOPFLILIB_OBJ) $(ZOPFLIBIN_OBJ) $(LODEPNG_OBJ) $(ZOPFLIPNGLIB_OBJ) $(ZOPFLIPNGBIN_OBJ) libzopfli*
+	rm -f zopfli
+	rm -r obj/src
