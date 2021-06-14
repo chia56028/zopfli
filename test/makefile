@@ -26,6 +26,7 @@ run:
 
 cov:
 	gcov ../obj/src/zopfli/deflate.c
+	grep '#####' ./deflate.c.gcov
 
 clean:
 	-rm $(APP)

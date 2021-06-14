@@ -1291,6 +1291,94 @@ void ZopfliCalculateBlockSizeAutoType_BCCttf(){
 }
 //end of Base Choice Coverage
 
+//Line Coverage
+void ZopfliDeflate_LC0(){
+	ZopfliOptions options;ZopfliInitOptions(&options);
+	int btype=2;
+	int final=1;
+	unsigned char in[500000];
+	size_t insize=500000;
+	unsigned char bp=0;
+	unsigned char* out=0;
+	size_t outsize=0;
+
+	for(int i=0;i<insize;++i)in[i]=i%128;
+
+	ZopfliDeflate(&options,btype,final,in,insize,&bp,&out,&outsize);
+	free(out);
+
+	assert(outsize<=insize);
+}
+void ZopfliDeflate_LC1(){
+	ZopfliOptions options;ZopfliInitOptions(&options);
+	int btype=2;
+	int final=1;
+	unsigned char in[500000];
+	size_t insize=500000;
+	unsigned char bp=0;
+	unsigned char* out=0;
+	size_t outsize=0;
+
+	for(int i=0;i<insize;++i)in[i]=i%256;
+
+	ZopfliDeflate(&options,btype,final,in,insize,&bp,&out,&outsize);
+	free(out);
+
+	assert(outsize<=insize);
+}
+void ZopfliDeflate_LC2(){
+	ZopfliOptions options;ZopfliInitOptions(&options);
+	int btype=2;
+	int final=1;
+	unsigned char in[500000];
+	size_t insize=5000;
+	unsigned char bp=0;
+	unsigned char* out=0;
+	size_t outsize=0;
+
+	for(int i=0;i<insize;++i)in[i]=i%256;
+
+	ZopfliDeflate(&options,btype,final,in,insize,&bp,&out,&outsize);
+	free(out);
+
+	assert(outsize<=insize);
+}
+void ZopfliDeflate_LC3(){
+	ZopfliOptions options;ZopfliInitOptions(&options);
+	int btype=2;
+	int final=1;
+	unsigned char in[500000];
+	size_t insize=0;
+	unsigned char bp=0;
+	unsigned char* out=0;
+	size_t outsize=0;
+
+	for(int i=0;i<insize;++i)in[i]=i%256;
+
+	ZopfliDeflate(&options,btype,final,in,insize,&bp,&out,&outsize);
+	free(out);
+
+	assert(outsize>=insize);
+}
+void ZopfliDeflate_LC4(){
+	ZopfliOptions options;ZopfliInitOptions(&options);
+	int btype=0;
+	int final=1;
+	unsigned char in[500000];
+	size_t insize=500000;
+	unsigned char bp=0;
+	unsigned char* out=0;
+	size_t outsize=0;
+
+	for(int i=0;i<insize;++i)in[i]=i%256;
+
+	ZopfliDeflate(&options,btype,final,in,insize,&bp,&out,&outsize);
+	free(out);
+
+	assert(outsize>=insize);
+}
+//end of Line Coverage
+
 int main(){//call your test function here
 	ZopfliDeflate_Example();
 
@@ -1325,6 +1413,14 @@ int main(){//call your test function here
 	ZopfliCalculateBlockSizeAutoType_BCCtft();
 	ZopfliCalculateBlockSizeAutoType_BCCttf();
 	printf("[TEST] Base Choice Coverage done.\n");
+
+	//Line Coverage
+	ZopfliDeflate_LC0();
+	ZopfliDeflate_LC1();
+	ZopfliDeflate_LC2();
+	ZopfliDeflate_LC3();
+	ZopfliDeflate_LC4();
+	printf("[TEST] Line Coverage done.\n");
 
 	printf("[TEST] All done.\n");
 }
