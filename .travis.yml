@@ -6,7 +6,6 @@ os:
 
 # Compiler selection
 compiler:
-  - clang
   - gcc
 
 script:
