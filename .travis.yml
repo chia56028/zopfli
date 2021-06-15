@@ -1,0 +1,14 @@
+# Set the build language to C
+language: c
+
+os:
+  - linux
+
+# Compiler selection
+compiler:
+  - clang
+  - gcc
+
+script:
+  - cd test
+  - make run
