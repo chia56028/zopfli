@@ -1,3 +1,7 @@
+# zopfli
+[![Build Status](https://travis-ci.com/chia56028/zopfli.svg?branch=master)](https://travis-ci.com/chia56028/zopfli)
+[![C/C++ CI](https://github.com/chia56028/zopfli/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/chia56028/zopfli/actions/workflows/c-cpp.yml)
+
 Zopfli Compression Algorithm is a compression library programmed in C to perform
 very good, but slow, deflate or zlib compression.
 
